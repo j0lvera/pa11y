@@ -1,0 +1,24 @@
+{
+  "name": "create-next-example-app",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.10",
+    "@rebass/emotion": "^3.1.0",
+    "hex-to-hsl": "^1.0.2",
+    "hsl-to-hex": "^1.0.0",
+    "next": "^8.0.4",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "shortid": "^2.2.14",
+    "wcag-contrast": "^2.1.1"
+  },
+  "devDependencies": {
+    "prettier": "^1.17.0"
+  }
+}

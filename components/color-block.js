@@ -1,3 +1,5 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
 import { useState } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
@@ -49,10 +51,14 @@ const ColorBlock = ({ name, color, setColor }) => {
   return (
     <Box as="form" p={3}>
       <Column>
-        <Text textAlign="center">
-          {name}: {color}
+        <Text textAlign="center" mb={2}>
+          {name}
         </Text>
         <input
+          css={css`
+            background-color: transparent;
+            border: 0;
+          `}
           type="text"
           name="fg"
           value={hex}

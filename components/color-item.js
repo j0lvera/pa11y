@@ -10,19 +10,17 @@ const ColorItem = ({ id, fg, bg }) => {
   const contrast = hex(foreground, background);
 
   return (
-    <Box bg={background} color={foreground}>
+    <Box bg={background} color={foreground} width={1 / 4}>
       <Text textAlign="center" py={3}>
         {contrast.toFixed(2)} {score(contrast) || "Fail"}
       </Text>
       <Flex>
-        <Flex>
-          <Box width={1 / 2} p={2}>
-            <ColorBlock name="Text" color={fg} setColor={setForeground} />
-          </Box>
-          <Box width={1 / 2} p={2}>
-            <ColorBlock name="Background" color={bg} setColor={setBackground} />
-          </Box>
-        </Flex>
+        <Box width={1 / 2} p={2}>
+          <ColorBlock name="Text" color={fg} setColor={setForeground} />
+        </Box>
+        <Box width={1 / 2} p={2}>
+          <ColorBlock name="Background" color={bg} setColor={setBackground} />
+        </Box>
       </Flex>
     </Box>
   );

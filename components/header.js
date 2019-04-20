@@ -6,7 +6,7 @@ const Header = () => {
   return (
     <>
       <Head />
-      <Nav />
+      {/* <Nav /> */}
       <Global
         styles={css`
           html {

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
+import Color from "color";
 import { useState } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
@@ -8,7 +9,14 @@ import EditControl from "./edit-control";
 
 const Column = ({ children }) => <Flex flexDirection="column">{children}</Flex>;
 
-const ColorBlock = ({ name, color, setColor }) => {
+const ColorBlock = ({
+  isLight,
+  setContrast,
+  inputColor,
+  name,
+  color,
+  setColor
+}) => {
   const [hex, setHex] = useState(color);
   const [h, s, l] = hexToHsl(hex);
   const [hsl, setHSL] = useState({ h, s: s / 100, l: l / 100 });
@@ -32,6 +40,8 @@ const ColorBlock = ({ name, color, setColor }) => {
     const newSaturation = hsl.s <= 1 ? hsl.s * 100 : hsl.s;
     const newLightness = hsl.l <= 1 ? hsl.l * 100 : hsl.l;
     const newColor = hslToHex(hsl.h, newSaturation, newLightness);
+
+    setContrast(Color(newColor).isLight());
     setHex(newColor);
     setColor(newColor);
   }
@@ -44,33 +54,62 @@ const ColorBlock = ({ name, color, setColor }) => {
     setHSL({ h, s, l });
 
     if (value.length === 7) {
+      setContrast(Color(newColor).isLight());
       setColor(value);
     }
   }
 
   return (
-    <Box as="form" p={3}>
+    <Box as="form">
       <Column>
-        <Text textAlign="center" mb={2}>
-          {name}
-        </Text>
-        <input
-          css={css`
-            background-color: transparent;
-            border: 0;
-          `}
-          type="text"
-          name="fg"
-          value={hex}
-          autoComplete="off"
-          onChange={handleHex}
-        />
+        <Flex
+          as="fieldset"
+          p={0}
+          flexDirection="column"
+          css={{
+            border: 0
+          }}
+        >
+          <Text as="label" for="color" textAlign="center">
+            {name}
+          </Text>
+          <Text
+            as="input"
+            fontSize={3}
+            textAlign="center"
+            color={inputColor}
+            bg="transparent"
+            my={2}
+            width={1}
+            css={{
+              border: 0
+            }}
+            type="text"
+            id="color"
+            name="color"
+            value={hex}
+            autoComplete="off"
+            autoCorrect="off"
+            autoCapitalize="off"
+            spellCheck="off"
+            pattern="^#[0-9a-f]"
+            required="true"
+            onChange={handleHex}
+          />
+        </Flex>
 
-        <EditControl name="hue" value={hsl.h} max={360} handler={handleHsl} />
+        <EditControl
+          isLight={isLight}
+          name="hue"
+          value={hsl.h}
+          max={360}
+          handler={handleHsl}
+        />
       </Column>
 
       <Column>
         <EditControl
+          isLight={isLight}
           name="saturation"
           value={hsl.s}
           max={1.0}
@@ -81,6 +120,7 @@ const ColorBlock = ({ name, color, setColor }) => {
 
       <Column>
         <EditControl
+          isLight={isLight}
           name="lightness"
           value={hsl.l}
           max={1.0}

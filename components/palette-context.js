@@ -16,6 +16,21 @@ const initialState = {
       id: generate(),
       fg: "#12371f",
       bg: "#fecd9e"
+    },
+    {
+      id: generate(),
+      fg: "#c06093",
+      bg: "#12010a"
+    },
+    {
+      id: generate(),
+      fg: "#6d70f3",
+      bg: "#0d170b"
+    },
+    {
+      id: generate(),
+      fg: "#d1528a",
+      bg: "#0e0639"
     }
   ]
 };

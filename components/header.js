@@ -1,11 +1,11 @@
 import { Global, css } from "@emotion/core";
-import { Text } from "@rebass/emotion";
+import { Box, Text } from "@rebass/emotion";
 import Head from "./head";
 
 // const Head = ({ description, url, title, ogImage }) => (
 const Header = () => {
   return (
-    <>
+    <Box as="header" py={4}>
       <Head
         title="Pa11y - A tool to generate accessible color palettes"
         description="Generate color palettes and check WCAG color contrast ratio for each combination"
@@ -13,7 +13,7 @@ const Header = () => {
         ogImage=""
       />
 
-      <Text as="h1" textAlign="center">
+      <Text as="h1" textAlign="center" mt={0}>
         Pa11y
       </Text>
 
@@ -110,7 +110,7 @@ const Header = () => {
           }
         `}
       />
-    </>
+    </Box>
   );
 };
 

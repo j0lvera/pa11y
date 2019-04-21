@@ -9,28 +9,28 @@ const initialState = {
   palettes: [
     {
       id: generate(),
-      fg: "#004466",
-      bg: "#00ffa2"
+      fg: "#333652",
+      bg: "#90adc6"
     },
     {
       id: generate(),
-      fg: "#12371f",
-      bg: "#fecd9e"
+      fg: "#333652",
+      bg: "#e9eaec"
     },
     {
       id: generate(),
-      fg: "#c06093",
-      bg: "#12010a"
+      fg: "#333652",
+      bg: "#fad02c"
     },
     {
       id: generate(),
-      fg: "#6d70f3",
-      bg: "#0d170b"
+      fg: "#e9eaec",
+      bg: "#333652"
     },
     {
       id: generate(),
-      fg: "#d1528a",
-      bg: "#0e0639"
+      fg: "#fad02c",
+      bg: "#333652"
     }
   ]
 };

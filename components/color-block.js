@@ -54,7 +54,7 @@ const ColorBlock = ({
     setHSL({ h, s, l });
 
     if (value.length === 7) {
-      setContrast(Color(newColor).isLight());
+      setContrast(Color(value).isLight());
       setColor(value);
     }
   }

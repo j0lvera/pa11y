@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from "react";
+import { useState } from "react";
 import Color from "color";
 import { Card, Box, Flex, Text } from "@rebass/emotion";
 import { hex, score } from "wcag-contrast";
@@ -21,9 +21,9 @@ const ColorItem = ({ fg, bg }) => {
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
-            inputColor={fg}
+            inputColor={foreground}
             name="Text"
-            color={fg}
+            color={foreground}
             setColor={setForeground}
           />
         </Box>
@@ -31,9 +31,9 @@ const ColorItem = ({ fg, bg }) => {
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
-            inputColor={fg}
+            inputColor={foreground}
             name="Background"
-            color={bg}
+            color={background}
             setColor={setBackground}
           />
         </Box>

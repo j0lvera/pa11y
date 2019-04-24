@@ -3,8 +3,15 @@ import Color from "color";
 import { Card, Box, Flex, Text } from "@rebass/emotion";
 import { hex, score } from "wcag-contrast";
 import ColorBlock from "./color-block";
+import ToolBox from "./color-toolbox";
 
-const ColorItem = ({ fg, bg }) => {
+export const Block = props => (
+  <Card borderRadius={18} p={3} {...props}>
+    {props.children}
+  </Card>
+);
+
+const ColorItem = ({ blockId, fg, bg }) => {
   const [foreground, setForeground] = useState(fg);
   const [background, setBackground] = useState(bg);
   const [isLight, setContrast] = useState(Color(background).isLight());
@@ -12,12 +19,13 @@ const ColorItem = ({ fg, bg }) => {
   const contrast = hex(foreground, background);
 
   return (
-    <Card bg={background} color={foreground} borderRadius={18} p={2}>
+    <Block bg={background} color={foreground}>
+      <ToolBox blockId={blockId} />
       <Text textAlign="center" fontWeight="bold" fontSize={3}>
         {contrast.toFixed(2)} {score(contrast) || "Fail"}
       </Text>
       <Flex>
-        <Box width={1 / 2} p={2}>
+        <Box width={1 / 2} py={2} pr={2}>
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
@@ -27,7 +35,7 @@ const ColorItem = ({ fg, bg }) => {
             setColor={setForeground}
           />
         </Box>
-        <Box width={1 / 2} p={2}>
+        <Box width={1 / 2} py={2} pl={2}>
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
@@ -38,7 +46,7 @@ const ColorItem = ({ fg, bg }) => {
           />
         </Box>
       </Flex>
-    </Card>
+    </Block>
   );
 };
 

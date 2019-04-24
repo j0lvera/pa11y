@@ -25,34 +25,18 @@ const PaletteContainer = styled(Box)`
   }
 `;
 
-const Palette = ({ paletteId, blocks }) => {
-  return (
-    <>
-      {blocks.map(({ id, fg, bg }) => {
-        if (!fg && !bg) {
-          return <Placeholder paletteId={paletteId} blockId={id} />;
-        }
-
-        return (
-          <ColorItem key={id} paletteId={paletteId} id={id} fg={fg} bg={bg} />
-        );
-      })}
-    </>
-  );
-};
-
 const Home = () => {
-  const { palettes } = useContext(PaletteContext);
+  const { blocks } = useContext(PaletteContext);
   return (
     <Layout>
       <PaletteContainer>
-        {palettes.map(palette => (
-          <Palette
-            key={palette.id}
-            paletteId={palette.id}
-            blocks={palette.blocks}
-          />
-        ))}
+        {blocks.map(({ id, fg, bg }) => {
+          if (!fg && !bg) {
+            return <Placeholder key={id} blockId={id} />;
+          }
+
+          return <ColorItem key={id} fg={fg} bg={bg} blockId={id} />;
+        })}
       </PaletteContainer>
     </Layout>
   );

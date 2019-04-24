@@ -12,24 +12,28 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const ToolBox = ({ paletteId, blockId }) => {
+const ToolBox = ({ blockId }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
     <Flex justifyContent="end">
       <CloseButton
         onClick={() =>
           dispatch({
-            type: "UPDATE_BLOCK",
+            type: "REMOVE_BLOCK",
             payload: {
-              paletteId,
-              block: {
-                blockId,
-                fg: "",
-                bg: ""
-              }
+              blockId
             }
           })
         }
+        //   dispatch({
+        //     type: "UPDATE_BLOCK",
+        //     payload: {
+        //       blockId,
+        //       fg: "",
+        //       bg: ""
+        //     }
+        //   })
+        // }
       >
         <FontAwesomeIcon icon={faTimes} />
       </CloseButton>

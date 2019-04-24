@@ -14,21 +14,18 @@ const AddButton = styled.button`
   border-radius: 18px;
 `;
 
-const Placeholder = ({ paletteId, blockId }) => {
+const Placeholder = ({ blockId }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
-    <Block bg="#eee" color="#111">
+    <Block bg="#eee" color="#111" minHeight="265.2px">
       <AddButton
         onClick={() =>
           dispatch({
-            type: "UPDATE_BLOCK",
+            type: "ADD_BLOCK",
             payload: {
-              paletteId,
-              block: {
-                blockId,
-                fg: "#333333",
-                bg: "#eeeeee"
-              }
+              blockId,
+              fg: "#333333",
+              bg: "#eeeeee"
             }
           })
         }

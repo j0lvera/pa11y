@@ -11,7 +11,7 @@ export const Block = props => (
   </Card>
 );
 
-const ColorItem = ({ paletteId, id, fg, bg }) => {
+const ColorItem = ({ blockId, fg, bg }) => {
   const [foreground, setForeground] = useState(fg);
   const [background, setBackground] = useState(bg);
   const [isLight, setContrast] = useState(Color(background).isLight());
@@ -20,7 +20,7 @@ const ColorItem = ({ paletteId, id, fg, bg }) => {
 
   return (
     <Block bg={background} color={foreground}>
-      <ToolBox paletteId={paletteId} blockId={id} />
+      <ToolBox blockId={blockId} />
       <Text textAlign="center" fontWeight="bold" fontSize={3}>
         {contrast.toFixed(2)} {score(contrast) || "Fail"}
       </Text>

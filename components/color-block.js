@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core";
 import Color from "color";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
 import hexToHsl from "hex-to-hsl";
@@ -46,6 +46,8 @@ const ColorBlock = ({
     setColor(newColor);
   }
 
+  const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
+
   function handleHex(e) {
     const value = e.target.value;
     const [h, s, l] = hexToHsl(value);
@@ -58,6 +60,8 @@ const ColorBlock = ({
       setColor(value);
     }
   }
+
+  const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
 
   return (
     <Box as="form">
@@ -94,7 +98,7 @@ const ColorBlock = ({
             spellCheck="off"
             pattern="^#[0-9a-f]"
             required="true"
-            onChange={handleHex}
+            onChange={memoizedHandleHex}
           />
         </Flex>
 
@@ -103,7 +107,7 @@ const ColorBlock = ({
           name="hue"
           value={hsl.h}
           max={360}
-          handler={handleHsl}
+          handler={memoizedHandleHsl}
         />
       </Column>
 
@@ -114,7 +118,7 @@ const ColorBlock = ({
           value={hsl.s}
           max={1.0}
           step="0.00390625"
-          handler={handleHsl}
+          handler={memoizedHandleHsl}
         />
       </Column>
 
@@ -125,7 +129,7 @@ const ColorBlock = ({
           value={hsl.l}
           max={1.0}
           step="0.00390625"
-          handler={handleHsl}
+          handler={memoizedHandleHsl}
         />
       </Column>
     </Box>

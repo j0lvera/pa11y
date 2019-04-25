@@ -1,4 +1,4 @@
-import { useMemo, useReducer, createContext } from "react";
+import { useEffect, useReducer, createContext } from "react";
 import { generate } from "shortid";
 
 let PaletteContext;
@@ -83,8 +83,34 @@ const reducer = (state, { type, payload }) => {
   }
 };
 
+const setStorage = (key, value) => {
+  if (process.browser) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+const getStorage = key => {
+  if (process.browser) {
+    return JSON.parse(window.localStorage.getItem(key));
+  }
+};
+
 const PaletteProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const persistedState = process.browser ? getStorage("pa11y") : initialState;
+
+  const [state, dispatch] = useReducer(reducer, persistedState);
+
+  useEffect(() => {
+    const persistState = () => setStorage("pa11y", state);
+    if (process.browser) {
+      window.addEventListener("beforeunload", persistState);
+    }
+    return () => {
+      window.localStorage.setItem("pa11y", JSON.stringify(state));
+      window.removeEventListener("beforeunload", persistState);
+    };
+  }, [persistedState, state]);
+
   return <Provider value={{ ...state, dispatch }}>{children}</Provider>;
 };
 

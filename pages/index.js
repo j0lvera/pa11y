@@ -30,7 +30,7 @@ const Home = () => {
   return (
     <Layout>
       <Box width={[1, 1 / 2]} mx="auto" mb={4}>
-        <Text as="p" textAlign="center" fontSize={3} mb={1}>
+        <Text as="h2" textAlign="center" mb={1}>
           Create Accessible Color Palettes
         </Text>
 

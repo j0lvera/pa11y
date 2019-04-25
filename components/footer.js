@@ -19,7 +19,9 @@ const Footer = () => (
       </p>
 
       {links.map(({ label, link }) => (
-        <Link href={link}>{label}</Link>
+        <Link key={link} href={link}>
+          {label}
+        </Link>
       ))}
     </Text>
   </Box>

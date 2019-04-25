@@ -74,7 +74,7 @@ const ColorBlock = ({
             border: 0
           }}
         >
-          <Text as="label" for="color" textAlign="center">
+          <Text as="label" htmlFor="color" textAlign="center">
             {name}
           </Text>
           <Text
@@ -97,7 +97,7 @@ const ColorBlock = ({
             autoCapitalize="off"
             spellCheck="off"
             pattern="^#[0-9a-f]"
-            required="true"
+            required={true}
             onChange={memoizedHandleHex}
           />
         </Flex>

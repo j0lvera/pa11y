@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
-import { Box } from "@rebass/emotion";
+import { Box, Text } from "@rebass/emotion";
 import Layout from "../components/layout";
 import { PaletteContext } from "../components/palette-context";
 import ColorItem from "../components/color-item";
@@ -29,6 +29,16 @@ const Home = () => {
   const { blocks } = useContext(PaletteContext);
   return (
     <Layout>
+      <Box width={[1, 1 / 2]} mx="auto" mb={4}>
+        <Text as="p" textAlign="center" fontSize={3} mb={1}>
+          Create Accessible Color Palettes
+        </Text>
+
+        <Text as="p" textAlign="center">
+          Use this palette as a starting point. Create, edit or remove color
+          blocks!
+        </Text>
+      </Box>
       <PaletteContainer>
         {blocks.map(({ id, fg, bg }) => {
           if (!fg && !bg) {

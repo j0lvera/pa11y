@@ -1,11 +1,12 @@
-import { Global, css } from "@emotion/core";
-import { Box, Text } from "@rebass/emotion";
+/** @jsx jsx */
+import { Global, css, jsx } from "@emotion/core";
+import { Box, Flex, Text } from "@rebass/emotion";
 import Head from "./head";
+import Logo from "../static/logo.svg";
 
-// const Head = ({ description, url, title, ogImage }) => (
 const Header = () => {
   return (
-    <Box as="header" py={4}>
+    <Box as="header" py={2}>
       <Head
         title="Pa11y - A tool to generate accessible color palettes"
         description="Generate color palettes and check WCAG color contrast ratio for each combination"
@@ -13,13 +14,26 @@ const Header = () => {
         ogImage=""
       />
 
-      <Text as="h1" textAlign="center" mt={0}>
-        Pa11y
-      </Text>
-
-      <Text as="p" textAlign="center">
-        Create Accessible Color Palettes
-      </Text>
+      <Flex
+        alignItems="center"
+        justifyContent="center"
+        width={[1, 1 / 2]}
+        mx="auto"
+      >
+        <Logo
+          css={css`
+            margin-top: -0.5em;
+            margin-right: 0.5em;
+            transform: rotate(10deg);
+          `}
+          width="80"
+          height="100"
+          viewBox="0 0 17 32"
+        />
+        <Text as="h1" textAlign="center" my={0}>
+          Pa11y
+        </Text>
+      </Flex>
 
       <Global
         styles={css`

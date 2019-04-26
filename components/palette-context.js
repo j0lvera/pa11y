@@ -46,6 +46,18 @@ const initialState = {
   ]
 };
 
+const setStorage = (key, value) => {
+  if (process.browser) {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+};
+
+const getStorage = key => {
+  if (process.browser) {
+    return JSON.parse(window.localStorage.getItem(key));
+  }
+};
+
 const reducer = (state, { type, payload }) => {
   switch (type) {
     case "ADD_BLOCK":
@@ -64,6 +76,11 @@ const reducer = (state, { type, payload }) => {
       return {
         blocks: [...state.blocks.filter(block => block.id !== payload.blockId)]
       };
+    case "UPDATE_STORE":
+      if (process.browser) {
+        setStorage("pa11y", state);
+      }
+      return state;
     case "UPDATE_BLOCK":
       return {
         blocks: state.blocks.map(block => {
@@ -83,33 +100,19 @@ const reducer = (state, { type, payload }) => {
   }
 };
 
-const setStorage = (key, value) => {
-  if (process.browser) {
-    window.localStorage.setItem(key, JSON.stringify(value));
-  }
-};
-
-const getStorage = key => {
-  if (process.browser) {
-    return JSON.parse(window.localStorage.getItem(key));
-  }
-};
-
 const PaletteProvider = ({ children }) => {
-  const persistedState = process.browser ? getStorage("pa11y") : initialState;
-
+  const persistedState = process.browser
+    ? getStorage("pa11y") || initialState // if storage is precent but empty use initial state
+    : initialState;
   const [state, dispatch] = useReducer(reducer, persistedState);
 
   useEffect(() => {
-    const persistState = () => setStorage("pa11y", state);
-    if (process.browser) {
-      window.addEventListener("beforeunload", persistState);
-    }
+    setStorage("pa11y", state);
+
     return () => {
-      window.localStorage.setItem("pa11y", JSON.stringify(state));
-      window.removeEventListener("beforeunload", persistState);
+      setStorage("pa11y", state);
     };
-  }, [persistedState, state]);
+  }, [state]);
 
   return <Provider value={{ ...state, dispatch }}>{children}</Provider>;
 };

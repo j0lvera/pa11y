@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import Color from "color";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useContext } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
 import hexToHsl from "hex-to-hsl";
@@ -15,12 +15,14 @@ const ColorBlock = ({
   inputColor,
   name,
   color,
-  setColor
+  setColor,
+  blockId
 }) => {
   const [hex, setHex] = useState(color);
   const [h, s, l] = hexToHsl(hex);
   const [hsl, setHSL] = useState({ h, s: s / 100, l: l / 100 });
 
+  const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
   function handleHsl(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -46,8 +48,7 @@ const ColorBlock = ({
     setColor(newColor);
   }
 
-  const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
-
+  const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
   function handleHex(e) {
     const value = e.target.value;
     const [h, s, l] = hexToHsl(value);
@@ -60,8 +61,6 @@ const ColorBlock = ({
       setColor(value);
     }
   }
-
-  const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
 
   return (
     <Box as="form">

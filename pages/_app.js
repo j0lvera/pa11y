@@ -4,24 +4,20 @@ import { PaletteProvider } from "../components/palette-context";
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {
-    const persistedState = process.browser
-      ? JSON.parse(window.localStorage.getItem("pa11y"))
-      : {};
-
     let pageProps = {};
 
     if (Component.getInitialProps) {
       pageProps = await Component.getInitialProps(ctx);
     }
-    return { pageProps, persistedState };
+    return { pageProps };
   }
 
   render() {
-    const { Component, pageProps, persistedState } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
       <Container>
-        <PaletteProvider persistedState={persistedState}>
+        <PaletteProvider>
           <Component {...pageProps} />
         </PaletteProvider>
       </Container>

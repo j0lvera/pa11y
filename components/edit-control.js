@@ -1,8 +1,7 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import PropTypes from "prop-types";
 import { Text } from "@rebass/emotion";
-// import styled from "@emotion/styled";
 
 const EditControl = ({ isLight, name, value, max, step, handler }) => (
   <>
@@ -25,7 +24,7 @@ const EditControl = ({ isLight, name, value, max, step, handler }) => (
 EditControl.propTypes = {
   isLight: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  value: PropTypes.number.isRequired,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   max: PropTypes.number,
   step: PropTypes.string,
   handler: PropTypes.func.isRequired

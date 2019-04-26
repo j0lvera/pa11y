@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { css, jsx } from "@emotion/core";
+import { jsx } from "@emotion/core";
 import Color from "color";
 import { useState, useCallback } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
@@ -12,16 +12,18 @@ const Column = ({ children }) => <Flex flexDirection="column">{children}</Flex>;
 const ColorBlock = ({
   isLight,
   setContrast,
-  inputColor,
   name,
   color,
   setColor
+  // blockId
 }) => {
   const [hex, setHex] = useState(color);
   const [h, s, l] = hexToHsl(hex);
   const [hsl, setHSL] = useState({ h, s: s / 100, l: l / 100 });
 
+  const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
   function handleHsl(e) {
+    // function memoizedHandleHsl(e) {
     const name = e.target.name;
     const value = e.target.value;
 
@@ -41,27 +43,30 @@ const ColorBlock = ({
     const newLightness = hsl.l <= 1 ? hsl.l * 100 : hsl.l;
     const newColor = hslToHex(hsl.h, newSaturation, newLightness);
 
-    setContrast(Color(newColor).isLight());
+    if (name === "Background") {
+      setContrast(Color(value).isLight());
+    }
+
     setHex(newColor);
     setColor(newColor);
   }
 
-  const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
-
+  const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
   function handleHex(e) {
+    // function memoizedHandleHex(e) {
     const value = e.target.value;
     const [h, s, l] = hexToHsl(value);
 
     setHex(value);
-    setHSL({ h, s, l });
+    setHSL({ h: h, s: s / 100, l: l / 100 });
 
     if (value.length === 7) {
-      setContrast(Color(value).isLight());
+      if (name === "Background") {
+        setContrast(Color(value).isLight());
+      }
       setColor(value);
     }
   }
-
-  const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
 
   return (
     <Box as="form">
@@ -74,14 +79,14 @@ const ColorBlock = ({
             border: 0
           }}
         >
-          <Text as="label" for="color" textAlign="center">
+          <Text as="label" htmlFor="color" textAlign="center">
             {name}
           </Text>
           <Text
             as="input"
             fontSize={3}
             textAlign="center"
-            color={inputColor}
+            color="inherit"
             bg="transparent"
             my={2}
             width={1}
@@ -97,7 +102,7 @@ const ColorBlock = ({
             autoCapitalize="off"
             spellCheck="off"
             pattern="^#[0-9a-f]"
-            required="true"
+            required={true}
             onChange={memoizedHandleHex}
           />
         </Flex>

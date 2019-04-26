@@ -25,15 +25,6 @@ const ToolBox = ({ blockId }) => {
             }
           })
         }
-        //   dispatch({
-        //     type: "UPDATE_BLOCK",
-        //     payload: {
-        //       blockId,
-        //       fg: "",
-        //       bg: ""
-        //     }
-        //   })
-        // }
       >
         <FontAwesomeIcon icon={faTimes} />
       </CloseButton>

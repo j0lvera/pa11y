@@ -101,16 +101,16 @@ const reducer = (state, { type, payload }) => {
 };
 
 const PaletteProvider = ({ children }) => {
-  const persistedState = process.browser
-    ? getStorage("pa11y") || initialState // if storage is precent but empty use initial state
-    : initialState;
-  const [state, dispatch] = useReducer(reducer, persistedState);
+  // const persistedState = process.browser
+  // ? getStorage("pa11y") || initialState // if storage is precent but empty use initial state
+  // : initialState;
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   useEffect(() => {
-    setStorage("pa11y", state);
+    // setStorage("pa11y", state);
 
     return () => {
-      setStorage("pa11y", state);
+      // setStorage("pa11y", state);
     };
   }, [state]);
 

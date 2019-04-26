@@ -32,11 +32,11 @@ const ColorItem = ({ blockId, fg, bg }) => {
     });
   }, [foreground, background]);
 
-  console.log(
-    `id: ${blockId}, bg: ${background}, fg: ${foreground}, is browser: ${
-      process.browser
-    }`
-  );
+  // console.log(
+  //   `id: ${blockId}, bg: ${background}, fg: ${foreground}, is browser: ${
+  //     process.browser
+  //   }`
+  // );
 
   return (
     <Block bg={background} color={foreground}>
@@ -49,7 +49,6 @@ const ColorItem = ({ blockId, fg, bg }) => {
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
-            inputColor={foreground}
             name="Text"
             color={foreground}
             setColor={setForeground}
@@ -60,7 +59,6 @@ const ColorItem = ({ blockId, fg, bg }) => {
           <ColorBlock
             isLight={isLight}
             setContrast={setContrast}
-            inputColor={foreground}
             name="Background"
             color={background}
             setColor={setBackground}

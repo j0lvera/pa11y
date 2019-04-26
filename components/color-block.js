@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import Color from "color";
-import { useState, useCallback, useContext } from "react";
+import { useState, useCallback } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
 import hexToHsl from "hex-to-hsl";
@@ -12,11 +12,10 @@ const Column = ({ children }) => <Flex flexDirection="column">{children}</Flex>;
 const ColorBlock = ({
   isLight,
   setContrast,
-  inputColor,
   name,
   color,
-  setColor,
-  blockId
+  setColor
+  // blockId
 }) => {
   const [hex, setHex] = useState(color);
   const [h, s, l] = hexToHsl(hex);
@@ -24,6 +23,7 @@ const ColorBlock = ({
 
   const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
   function handleHsl(e) {
+    // function memoizedHandleHsl(e) {
     const name = e.target.name;
     const value = e.target.value;
 
@@ -43,21 +43,27 @@ const ColorBlock = ({
     const newLightness = hsl.l <= 1 ? hsl.l * 100 : hsl.l;
     const newColor = hslToHex(hsl.h, newSaturation, newLightness);
 
-    setContrast(Color(newColor).isLight());
+    if (name === "Background") {
+      setContrast(Color(value).isLight());
+    }
+
     setHex(newColor);
     setColor(newColor);
   }
 
   const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
   function handleHex(e) {
+    // function memoizedHandleHex(e) {
     const value = e.target.value;
     const [h, s, l] = hexToHsl(value);
 
     setHex(value);
-    setHSL({ h, s, l });
+    setHSL({ h: h, s: s / 100, l: l / 100 });
 
     if (value.length === 7) {
-      setContrast(Color(value).isLight());
+      if (name === "Background") {
+        setContrast(Color(value).isLight());
+      }
       setColor(value);
     }
   }
@@ -80,7 +86,7 @@ const ColorBlock = ({
             as="input"
             fontSize={3}
             textAlign="center"
-            color={inputColor}
+            color="inherit"
             bg="transparent"
             my={2}
             width={1}

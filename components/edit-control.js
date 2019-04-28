@@ -5,7 +5,6 @@ import PropTypes from "prop-types";
 import { Text } from "@rebass/emotion";
 
 const EditControl = ({ isLight, name, value, max, step, handler }) => {
-  useEffect(() => console.log("edit-control updated"));
   return (
     <>
       <Text as="label" htmlFor={name} textAlign="center">

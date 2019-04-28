@@ -1,22 +1,40 @@
+/** @jsx jsx */
+import { jsx, css } from "@emotion/core";
 import { useContext } from "react";
 import styled from "@emotion/styled";
 import { Box, Flex, Button } from "@rebass/emotion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes, faCog, faSlidersH } from "@fortawesome/free-solid-svg-icons";
+import {
+  faTimes,
+  faHamburger,
+  faBars
+} from "@fortawesome/free-solid-svg-icons";
 import { PaletteContext } from "./palette-context";
 
-const CloseButton = styled.button`
+const StrippedButton = styled.button`
   color: inherit;
   background-color: transparent;
   border: 0;
   cursor: pointer;
 `;
 
-const ToolBox = ({ blockId }) => {
+const ToolBox = ({ blockId, setDraggable }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
-    <Flex justifyContent="end">
-      <CloseButton
+    <Flex justifyContent="space-between">
+      <StrippedButton
+        onMouseDown={() => setDraggable(true)}
+        onMouseUp={() => setDraggable(false)}
+      >
+        <FontAwesomeIcon
+          icon={faBars}
+          css={css`
+            justify-self: end;
+          `}
+        />
+      </StrippedButton>
+
+      <StrippedButton
         onClick={() =>
           dispatch({
             type: "REMOVE_BLOCK",
@@ -27,7 +45,7 @@ const ToolBox = ({ blockId }) => {
         }
       >
         <FontAwesomeIcon icon={faTimes} />
-      </CloseButton>
+      </StrippedButton>
     </Flex>
   );
 };

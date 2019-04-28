@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import { jsx } from "@emotion/core";
 import Color from "color";
-import { useState, useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Box, Flex, Text } from "@rebass/emotion";
 import hslToHex from "hsl-to-hex";
 import hexToHsl from "hex-to-hsl";
@@ -14,12 +14,24 @@ const ColorBlock = ({
   setContrast,
   name,
   color,
-  setColor
-  // blockId
+  setColor,
+  blockId
 }) => {
   const [hex, setHex] = useState(color);
-  const [h, s, l] = hexToHsl(hex);
+  const [h, s, l] = hexToHsl(color);
   const [hsl, setHSL] = useState({ h, s: s / 100, l: l / 100 });
+  console.log("color block rendered!");
+
+  useEffect(() => {
+    // If a new block is used that means a drop down happened then we need
+    // to do this to rerender with the new values
+    setHex(color);
+    const [h, s, l] = hexToHsl(color);
+    setHSL({ h, s: s / 100, l: l / 100 });
+    if (name === "Background") {
+      setContrast(Color(color).isLight());
+    }
+  }, [blockId]);
 
   const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
   function handleHsl(e) {

@@ -42,7 +42,7 @@ const Home = () => {
       <PaletteContainer>
         {blocks.map(({ id, fg, bg, isDropZone }) => {
           if (isDropZone && !fg && !bg) {
-            return <Placeholder key={id} blockId={id} isButton={false} />;
+            return <Placeholder key={id} blockId={id} />;
           }
 
           if (!isDropZone && !fg && !bg) {

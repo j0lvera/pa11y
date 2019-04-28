@@ -117,7 +117,6 @@ const ColorItem = ({ blockId, fg, bg }) => {
       onDrop={e => handleDrop(e, blockId)}
       onDragEnd={handleDragEnd}
     >
-      {blockId}
       <ToolBox blockId={blockId} setDraggable={setDraggable} />
       <Text textAlign="center" fontWeight="bold" fontSize={3}>
         {contrast.toFixed(2)} {score(contrast) || "Fail"}

@@ -40,9 +40,13 @@ const Home = () => {
         </Text>
       </Box>
       <PaletteContainer>
-        {blocks.map(({ id, fg, bg }) => {
-          if (!fg && !bg) {
-            return <Placeholder key={id} blockId={id} />;
+        {blocks.map(({ id, fg, bg, isDropZone }) => {
+          if (isDropZone && !fg && !bg) {
+            return <Placeholder key={id} blockId={id} isButton={false} />;
+          }
+
+          if (!isDropZone && !fg && !bg) {
+            return <Placeholder key={id} blockId={id} isButton />;
           }
 
           return <ColorItem key={id} fg={fg} bg={bg} blockId={id} />;

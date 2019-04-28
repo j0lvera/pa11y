@@ -1,3 +1,6 @@
+/** @jsx jsx */
+import { css, jsx } from "@emotion/core";
+import { generate } from "shortid";
 import { useState, useEffect, useContext } from "react";
 import Color from "color";
 import { Card, Box, Flex, Text } from "@rebass/emotion";
@@ -14,12 +17,13 @@ export const Block = props => (
 
 const ColorItem = ({ blockId, fg, bg }) => {
   const { blocks, dispatch } = useContext(PaletteContext);
-  const block = blocks.filter(item => !(item.id != blockId))[0];
   const [foreground, setForeground] = useState(fg);
   const [background, setBackground] = useState(bg);
   const [isLight, setContrast] = useState(Color(background).isLight());
+  const [isDraggable, setDraggable] = useState(false);
 
   const contrast = hex(foreground, background);
+  console.log(blockId, fg, bg);
 
   useEffect(() => {
     dispatch({
@@ -32,15 +36,89 @@ const ColorItem = ({ blockId, fg, bg }) => {
     });
   }, [foreground, background]);
 
-  // console.log(
-  //   `id: ${blockId}, bg: ${background}, fg: ${foreground}, is browser: ${
-  //     process.browser
-  //   }`
-  // );
+  function handleDragStart(event, blockId) {
+    // event.target.style.display = "none";
+    event.dataTransfer.dropEffect = "move";
+    event.dataTransfer.setData("text/plain", blockId);
+  }
+
+  function handleDrop(event, currentBlockId) {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const droppedBlockId = event.dataTransfer.getData("text");
+
+    if (droppedBlockId === currentBlockId) {
+      return;
+    }
+
+    const currentBlock = blocks.filter(block => block.id === currentBlockId)[0];
+    const droppedBlock = blocks.filter(block => block.id === droppedBlockId)[0];
+
+    console.log(
+      `making ${currentBlockId} fg: ${droppedBlock.fg} bg: ${droppedBlock.bg}`
+    );
+
+    dispatch({
+      type: "UPDATE_BLOCK",
+      payload: {
+        blockId: currentBlockId,
+        newId: generate(),
+        fg: droppedBlock.fg,
+        bg: droppedBlock.bg
+      }
+    });
+
+    console.log(
+      `making ${droppedBlockId} fg: ${currentBlock.fg} bg: ${currentBlock.bg}`
+    );
+
+    dispatch({
+      type: "UPDATE_BLOCK",
+      payload: {
+        blockId: droppedBlockId,
+        newId: generate(),
+        fg: currentBlock.fg,
+        bg: currentBlock.bg
+      }
+    });
+
+    return false;
+  }
+
+  function handleDragOver(event) {
+    event.preventDefault();
+
+    setDraggable(false);
+    return false;
+  }
+
+  function handleDragEnter(event) {
+    // current hover target
+  }
+
+  function handleDragLeave(event) {
+    // previous target element
+  }
+
+  function handleDragEnd(event) {
+    // target is the source node
+  }
 
   return (
-    <Block bg={background} color={foreground}>
-      <ToolBox blockId={blockId} />
+    <Block
+      bg={bg}
+      color={fg}
+      draggable={isDraggable}
+      onDragEnter={handleDragEnter}
+      onDragLeave={handleDragLeave}
+      onDragStart={e => handleDragStart(e, blockId)}
+      onDragOver={handleDragOver}
+      onDrop={e => handleDrop(e, blockId)}
+      onDragEnd={handleDragEnd}
+    >
+      {blockId}
+      <ToolBox blockId={blockId} setDraggable={setDraggable} />
       <Text textAlign="center" fontWeight="bold" fontSize={3}>
         {contrast.toFixed(2)} {score(contrast) || "Fail"}
       </Text>
@@ -50,7 +128,7 @@ const ColorItem = ({ blockId, fg, bg }) => {
             isLight={isLight}
             setContrast={setContrast}
             name="Text"
-            color={foreground}
+            color={fg}
             setColor={setForeground}
             blockId={blockId}
           />
@@ -60,7 +138,7 @@ const ColorItem = ({ blockId, fg, bg }) => {
             isLight={isLight}
             setContrast={setContrast}
             name="Background"
-            color={background}
+            color={bg}
             setColor={setBackground}
             blockId={blockId}
           />

@@ -14,24 +14,26 @@ const AddButton = styled.button`
   border-radius: 18px;
 `;
 
-const Placeholder = ({ blockId }) => {
+const Placeholder = ({ blockId, isButton }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
     <Block bg="#eee" color="#111" minHeight="265.2px">
-      <AddButton
-        onClick={() =>
-          dispatch({
-            type: "ADD_BLOCK",
-            payload: {
-              blockId,
-              fg: "#333333",
-              bg: "#eeeeee"
-            }
-          })
-        }
-      >
-        <FontAwesomeIcon icon={faPlus} size="3x" />
-      </AddButton>
+      {isButton && (
+        <AddButton
+          onClick={() =>
+            dispatch({
+              type: "ADD_BLOCK",
+              payload: {
+                blockId,
+                fg: "#333333",
+                bg: "#eeeeee"
+              }
+            })
+          }
+        >
+          <FontAwesomeIcon icon={faPlus} size="3x" />
+        </AddButton>
+      )}
     </Block>
   );
 };

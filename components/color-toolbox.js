@@ -18,14 +18,11 @@ const StrippedButton = styled.button`
   cursor: pointer;
 `;
 
-const ToolBox = ({ blockId, setDraggable }) => {
+const ToolBox = ({ blockId }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
     <Flex justifyContent="space-between">
-      <StrippedButton
-        onMouseDown={() => setDraggable(true)}
-        onMouseUp={() => setDraggable(false)}
-      >
+      <StrippedButton>
         <FontAwesomeIcon
           icon={faBars}
           css={css`

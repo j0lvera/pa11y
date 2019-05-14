@@ -1,6 +1,9 @@
 import React from "react";
 import App, { Container } from "next/app";
+import { resetServerContext } from "react-beautiful-dnd";
 import { PaletteProvider } from "../components/palette-context";
+
+resetServerContext();
 
 class MyApp extends App {
   static async getInitialProps({ Component, ctx }) {

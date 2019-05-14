@@ -15,7 +15,8 @@ const AddButton = styled.button`
 `;
 
 const Placeholder = ({ blockId, isButton }) => {
-  const { dispatch } = useContext(PaletteContext);
+  const { blocks, dispatch } = useContext(PaletteContext);
+  // const newId = `block-${blocks.length + 1}`;
   return (
     <Block bg="#eee" color="#111" minHeight="265.2px">
       {isButton && (
@@ -24,7 +25,7 @@ const Placeholder = ({ blockId, isButton }) => {
             dispatch({
               type: "ADD_BLOCK",
               payload: {
-                blockId,
+                blockId: newId,
                 fg: "#333333",
                 bg: "#eeeeee"
               }

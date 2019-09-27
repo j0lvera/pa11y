@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { Global, css, jsx } from "@emotion/core";
-import { Box, Flex, Text } from "@rebass/emotion";
+import { Box, Flex, Text, Link, Button } from "@rebass/emotion";
 import Head from "./head";
 import Logo from "../static/logo.svg";
 
@@ -14,12 +14,7 @@ const Header = () => {
         ogImage=""
       />
 
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        width={[1, 1 / 2]}
-        mx="auto"
-      >
+      <Flex alignItems="center" width={[1, "70%"]} mx="auto">
         <Logo
           css={css`
             margin-top: -0.5em;
@@ -33,6 +28,20 @@ const Header = () => {
         <Text as="h1" textAlign="center" my={0}>
           Pa11y
         </Text>
+
+        <Flex as="nav" ml={4}>
+          <Link href="#!" mr={2}>
+            Features
+          </Link>
+          <Link href="#!" mr={2}>
+            Pricing
+          </Link>
+        </Flex>
+
+        <Flex ml="auto">
+          <Link href="/login">Login</Link>
+          <Button>Free Trial</Button>
+        </Flex>
       </Flex>
 
       <Global

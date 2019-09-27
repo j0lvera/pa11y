@@ -20,7 +20,6 @@ const ColorBlock = ({
   const [hex, setHex] = useState(color);
   const [h, s, l] = hexToHsl(color);
   const [hsl, setHSL] = useState({ h, s: s / 100, l: l / 100 });
-  console.log("color block rendered!");
 
   useEffect(() => {
     // If a new block is used that means a drop down happened then we need

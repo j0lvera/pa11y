@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import styled from "@emotion/styled";
+import axios from "axios";
 import { Box, Text } from "@rebass/emotion";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Layout from "../components/layout";

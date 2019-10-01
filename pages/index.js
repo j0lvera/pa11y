@@ -1,31 +1,10 @@
 import React, { useContext } from "react";
-import styled from "@emotion/styled";
-import axios from "axios";
-import { Box, Text } from "@rebass/emotion";
+import { Box } from "rebass";
+import { Text, Heading } from "../components/content";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import Layout from "../components/layout";
 import { PaletteContext } from "../components/palette-context";
 import ColorItem from "../components/color-item";
-import Placeholder from "../components/placeholder-block";
-
-const PaletteRow = styled(Box)`
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  grid-gap: 0.5em;
-
-  @media (min-width: 480px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media (min-width: 680px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
-
-  @media (min-width: 1200px) {
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  }
-`;
 
 const Home = () => {
   const { blocks, dispatch } = useContext(PaletteContext);
@@ -53,10 +32,10 @@ const Home = () => {
 
   return (
     <Layout>
-      <Box width={[1, 1 / 2]} mx="auto" mb={4}>
-        <Text as="h2" textAlign="center" mb={1}>
+      <Box width={[1, 1 / 2]} mx="auto" mb={4} py={3}>
+        <Heading as="h2" textAlign="center">
           Create Accessible Color Palettes
-        </Text>
+        </Heading>
 
         <Text as="p" textAlign="center">
           Use this palette as a starting point. Create, edit or remove color
@@ -67,9 +46,20 @@ const Home = () => {
         <div>
           <Droppable droppableId={"row"} direction="horizontal">
             {provided => (
-              <PaletteRow
+              <Box
                 innerRef={provided.innerRef}
                 {...provided.droppableProps}
+                sx={{
+                  display: "grid",
+                  gridTemplateColumns: [
+                    "1fr",
+                    "1fr 1fr",
+                    "1fr 1fr 1fr",
+                    "1fr 1fr 1fr 1fr 1fr"
+                  ],
+                  gridTemplateRows: "auto",
+                  gridGap: ".5em"
+                }}
               >
                 {blocks.map(({ id, fg, bg }, index) => (
                   <ColorItem
@@ -81,7 +71,7 @@ const Home = () => {
                   />
                 ))}
                 {provided.placeholder}
-              </PaletteRow>
+              </Box>
             )}
           </Droppable>
         </div>

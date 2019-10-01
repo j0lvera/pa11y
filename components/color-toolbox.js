@@ -1,8 +1,5 @@
-/** @jsx jsx */
-import { jsx, css } from "@emotion/core";
 import { useContext } from "react";
-import styled from "@emotion/styled";
-import { Box, Flex, Button } from "@rebass/emotion";
+import { Box, Flex, Button } from "rebass";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faTimes,
@@ -11,24 +8,19 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { PaletteContext } from "./palette-context";
 
-const StrippedButton = styled.button`
-  color: inherit;
-  background-color: transparent;
-  border: 0;
-  cursor: pointer;
-`;
-
 const ToolBox = ({ blockId }) => {
   const { dispatch } = useContext(PaletteContext);
   return (
     <Flex justifyContent="space-between">
-      <StrippedButton>
-        <FontAwesomeIcon
-          icon={faBars}
-          css={css`
-            justify-self: end;
-          `}
-        />
+      <StrippedButton
+        sx={{
+          color: "inherit",
+          backgroundColor: "transparent",
+          border: 0,
+          cursor: "pointer"
+        }}
+      >
+        <FontAwesomeIcon icon={faBars} />
       </StrippedButton>
 
       <StrippedButton

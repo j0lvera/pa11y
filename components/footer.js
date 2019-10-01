@@ -1,10 +1,6 @@
-import { Box, Text, Link } from "@rebass/emotion";
+import { Box, Text, Link } from "rebass";
 
 const links = [
-  //   {
-  //     label: "About",
-  //     link: "/about"
-  //   },
   {
     label: "GitHub",
     link: "https://github.com/j0lv3r4/pa11y"

@@ -1,8 +1,5 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
-import { useEffect } from "react";
 import PropTypes from "prop-types";
-import { Text } from "@rebass/emotion";
+import { Text } from "rebass";
 
 const EditControl = ({ isLight, name, value, max, step, handler }) => {
   return (

@@ -1,8 +1,6 @@
-/** @jsx jsx */
-import { jsx } from "@emotion/core";
 import Color from "color";
 import { useEffect, useState, useCallback } from "react";
-import { Box, Flex, Text } from "@rebass/emotion";
+import { Box, Flex, Text } from "rebass";
 import hslToHex from "hsl-to-hex";
 import hexToHsl from "hex-to-hsl";
 import EditControl from "./edit-control";
@@ -34,7 +32,6 @@ const ColorBlock = ({
 
   const memoizedHandleHsl = useCallback(e => handleHsl(e), [handleHsl]);
   function handleHsl(e) {
-    // function memoizedHandleHsl(e) {
     const name = e.target.name;
     const value = e.target.value;
 
@@ -64,7 +61,6 @@ const ColorBlock = ({
 
   const memoizedHandleHex = useCallback(e => handleHex(e), [handleHex]);
   function handleHex(e) {
-    // function memoizedHandleHex(e) {
     const value = e.target.value;
     const [h, s, l] = hexToHsl(value);
 
@@ -86,7 +82,7 @@ const ColorBlock = ({
           as="fieldset"
           p={0}
           flexDirection="column"
-          css={{
+          sx={{
             border: 0
           }}
         >
@@ -101,7 +97,7 @@ const ColorBlock = ({
             bg="transparent"
             my={2}
             width={1}
-            css={{
+            sx={{
               border: 0
             }}
             type="text"

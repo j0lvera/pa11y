@@ -1,11 +1,7 @@
-/** @jsx jsx */
-import { css, jsx } from "@emotion/core";
-import styled from "@emotion/styled";
-// import { generate } from "shortid";
 import { Draggable } from "react-beautiful-dnd";
 import { useState, useEffect, useContext } from "react";
 import Color from "color";
-import { Card, Box, Flex, Text } from "@rebass/emotion";
+import { Card, Box, Flex, Text } from "rebass";
 import { hex, score } from "wcag-contrast";
 import ColorBlock from "./color-block";
 import ToolBox from "./color-toolbox";
